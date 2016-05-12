@@ -9,13 +9,6 @@ package sudoku;
  *
  * @author Vojtech
  */
-public class Sudoku {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-       
-    }
+public class Grid {
     
 }
