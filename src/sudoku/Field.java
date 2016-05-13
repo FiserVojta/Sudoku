@@ -32,6 +32,8 @@ public class Field implements Comparable<Field>{
         setSquare();
 
     }
+    
+    
 
     public void setPosibilities() {
         System.out.println(XSquareCoordinate + " " + YSquareCoordinate);
@@ -63,7 +65,7 @@ public class Field implements Comparable<Field>{
         }
     }
 
-    private void removeNumberFromPosibilities(int number) {
+    public void removeNumberFromPosibilities(int number) {
         for (int i = 0; i < posibilities.size(); i++) {
             if (posibilities.get(i) == number) {
                 posibilities.remove(i);
@@ -117,5 +119,28 @@ public class Field implements Comparable<Field>{
     public int compareTo(Field t) {
         return posibilities.size() - t.getPosibilities().size();
     }
+
+    @Override
+    public String toString() {
+        return  value + " ";
+    }
+
+    public int getXSquareCoordinate() {
+        return XSquareCoordinate;
+    }
+
+    public int getYSquareCoordinate() {
+        return YSquareCoordinate;
+    }
+
+    public int getXcoordinate() {
+        return Xcoordinate;
+    }
+
+    public int getYcoordinate() {
+        return Ycoordinate;
+    }
+    
+    
 
 }

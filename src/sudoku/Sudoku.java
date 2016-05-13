@@ -24,6 +24,7 @@ public class Sudoku {
        //grid.getFieldAt(5, 5).setPosibilities();
        //grid.getFieldAt(5, 5).print();
        grid.compute();
+       grid.print();
     }
     
 }
