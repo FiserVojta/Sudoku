@@ -20,10 +20,10 @@ public class Sudoku {
        grid.getFieldAt(0, 6).setValue(6);
        grid.getFieldAt(5, 1).setValue(7);
        grid.getFieldAt(8, 1).setValue(8);
-       grid.getFieldAt(4, 4).setValue(1);
-       
-       grid.getFieldAt(5, 5).setPosibilities();
-       grid.getFieldAt(5, 5).print();
+       grid.getFieldAt(4, 4).setValue(1);       
+       //grid.getFieldAt(5, 5).setPosibilities();
+       //grid.getFieldAt(5, 5).print();
+       grid.compute();
     }
     
 }

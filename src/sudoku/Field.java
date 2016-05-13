@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Vojtech
  */
-public class Field {
+public class Field implements Comparable<Field>{
 
     private int value;
     private List<Integer> posibilities;
@@ -30,7 +30,7 @@ public class Field {
         posibilities = new ArrayList();
         used = false;
         setSquare();
-        
+
     }
 
     public void setPosibilities() {
@@ -43,52 +43,62 @@ public class Field {
         removePosibilitiesFromSquare();
     }
 
-    private void removePosibilitiesFromSquare(){
+    private void removePosibilitiesFromSquare() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 this.removeNumberFromPosibilities(grid.getFieldAt(XSquareCoordinate + i, YSquareCoordinate + j).getValue());
             }
         }
     }
-    
+
     private void removePosibilitiesFromLine() {
         for (int i = 0; i < 9; i++) {
             this.removeNumberFromPosibilities(grid.getFieldAt(Xcoordinate, i).getValue());
         }
     }
-    
-    private void removePosibilitiesFromColumn(){
-         for (int i = 0; i < 9; i++) {
+
+    private void removePosibilitiesFromColumn() {
+        for (int i = 0; i < 9; i++) {
             this.removeNumberFromPosibilities(grid.getFieldAt(i, Ycoordinate).getValue());
         }
     }
 
     private void removeNumberFromPosibilities(int number) {
         for (int i = 0; i < posibilities.size(); i++) {
-            if(posibilities.get(i) == number){
+            if (posibilities.get(i) == number) {
                 posibilities.remove(i);
                 return;
             }
         }
     }
-    
-    public void print(){
+
+    public void print() {
         for (int i = 0; i < posibilities.size(); i++) {
             System.out.print(posibilities.get(i));
         }
         System.out.println("");
+        System.out.println(Xcoordinate + " "  + Ycoordinate);
     }
 
     public List<Integer> getPosibilities() {
         return posibilities;
-    }   
-    
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
     public int getValue() {
         return value;
     }
 
     public void setValue(int value) {
         this.value = value;
+        used = true;
     }
 
     private void setSquare() {
@@ -101,6 +111,11 @@ public class Field {
                 }
             }
         }
+    }
+
+    @Override
+    public int compareTo(Field t) {
+        return posibilities.size() - t.getPosibilities().size();
     }
 
 }
