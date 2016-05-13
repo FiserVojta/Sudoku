@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Vojtech
  */
-public class Field implements Comparable<Field>{
+public class Field implements Comparable<Field> {
 
     private int value;
     private List<Integer> posibilities;
@@ -32,17 +32,28 @@ public class Field implements Comparable<Field>{
         setSquare();
 
     }
-    
-    
+
+    public void addToPosibilities(int number) {
+        boolean check = true;
+        for (int i = 0; i < posibilities.size(); i++) {
+            if (posibilities.get(i) == number) {
+                check = false;
+            }
+        }
+        if (check && !used) {
+            posibilities.add(number);
+        }
+    }
 
     public void setPosibilities() {
-        System.out.println(XSquareCoordinate + " " + YSquareCoordinate);
-        for (int i = 0; i < 9; i++) {
-            posibilities.add(i + 1);
-        }
-        removePosibilitiesFromLine();
-        removePosibilitiesFromColumn();
-        removePosibilitiesFromSquare();
+       
+            for (int i = 0; i < 9; i++) {
+                posibilities.add(i + 1);
+            }
+            removePosibilitiesFromLine();
+            removePosibilitiesFromColumn();
+            removePosibilitiesFromSquare();
+        
     }
 
     private void removePosibilitiesFromSquare() {
@@ -79,7 +90,7 @@ public class Field implements Comparable<Field>{
             System.out.print(posibilities.get(i));
         }
         System.out.println("");
-        System.out.println(Xcoordinate + " "  + Ycoordinate);
+        System.out.println(Xcoordinate + " " + Ycoordinate);
     }
 
     public List<Integer> getPosibilities() {
@@ -122,7 +133,7 @@ public class Field implements Comparable<Field>{
 
     @Override
     public String toString() {
-        return  value + " ";
+        return value + " ";
     }
 
     public int getXSquareCoordinate() {
@@ -140,7 +151,5 @@ public class Field implements Comparable<Field>{
     public int getYcoordinate() {
         return Ycoordinate;
     }
-    
-    
 
 }

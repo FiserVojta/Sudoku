@@ -31,7 +31,7 @@ public class Grid {
 
     public void compute() {
         setPosibilities();
-        recursion();
+        recursion();        
     }
 
     public void recursion() {
@@ -39,10 +39,14 @@ public class Grid {
             Field field = queue.poll();
             List<Integer> list = field.getPosibilities();
             for (int i = 0; i < list.size(); i++) {
-                field.setValue(list.get(i));
-                updatePosibilities(field, list.get(i));
+                int tmp = list.get(i);
+                field.setValue(tmp);
+                updatePosibilities(field, tmp);
+                //print();
                 recursion();
+                updatePosibilities(field, tmp);
             }
+            
         }
     }
 
@@ -74,31 +78,33 @@ public class Grid {
         }
         System.out.println(" ");
     }
-
-    private void updatePosibilities(Field field, int value) {
-        UpdatePosibilitiesInLine(field.getXcoordinate(), value);
-        UpdatePosibilitiesInColumn(field.getYcoordinate(), value);
-        UpdatePosibilitiesInSquare(field.getXSquareCoordinate(), field.getYSquareCoordinate(), value);
+    
+    private void updatePosibilities(Field field, int value){
+       UpdatePosibilitiesInLine(field.getXcoordinate(), value);
+       UpdatePosibilitiesInColumn(field.getYcoordinate(), value);
+       UpdatePosibilitiesInSquare(field.getXSquareCoordinate(), field.getYSquareCoordinate(), value);
     }
-
+    
     private void UpdatePosibilitiesInLine(int line, int number) {
         for (int i = 0; i < SIZE; i++) {
-            grid[line][i].removeNumberFromPosibilities(number);
+            grid[line][i].setPosibilities();
         }
     }
     
-    private void UpdatePosibilitiesInColumn(int column, int number) {
+     private void UpdatePosibilitiesInColumn(int column, int number) {
         for (int i = 0; i < SIZE; i++) {
-            grid[i][column].removeNumberFromPosibilities(number);
+            grid[i][column].setPosibilities();
         }
     }
     
-    private void UpdatePosibilitiesInSquare(int x, int y, int value){
+    private void UpdatePosibilitiesInSquare(int x, int y, int number){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                grid[x+i][y+j].removeNumberFromPosibilities(value);
+                grid[x+i][y+j].setPosibilities();
             }
         }
     }
+
+    
 
 }
