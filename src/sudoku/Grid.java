@@ -14,97 +14,78 @@ import java.util.PriorityQueue;
  */
 public class Grid {
 
-    private final Field[][] grid;
-    private final int SIZE;
+    private boolean solved;
     private PriorityQueue<Field> queue;
+    private final Field[][] grid;
 
-    public Grid(int SIZE) {
-        this.SIZE = SIZE;
-        grid = new Field[SIZE][SIZE];
-        setFields();
-        queue = new PriorityQueue<>(SIZE * SIZE);
+    public Grid() {
+        solved = false;
+        queue = new PriorityQueue<>();
+        this.grid = new Field[9][9];
+        setField();
+    }
+
+    public void compute() {
+        computeAllPosibilities();
+        System.out.println("  as" + queue.size() + " aa ");
+        rekurze();
+    }
+
+    private void rekurze() {
+
+        if (queue.isEmpty()) {
+            solved = true;
+            return;
+        }
+        Field field = queue.poll();
+        List<Integer> list = field.getPosibilities();
+        for (int i = 0; i < list.size(); i++) {
+            if (!solved) {
+                int value = list.get(i);
+                field.setValue(value);
+                computeAllPosibilities();
+                print();
+                rekurze();
+            }
+        }
+        if (!solved) {
+            field.setValue(0);
+            field.setUsed(false);
+            queue.add(field);
+
+        }
+    }
+
+    private void setField() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                grid[i][j] = new Field(i, j, this);
+                queue.add(grid[i][j]);
+            }
+        }
+    }
+
+    public void computeAllPosibilities() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                grid[i][j].setPosibilities();
+                //queue.add(grid[i][j]);
+            }
+        }
     }
 
     public Field getFieldAt(int x, int y) {
         return grid[x][y];
     }
 
-    public void compute() {
-        setPosibilities();
-        recursion();        
-    }
-
-    public void recursion() {
-        if (!queue.isEmpty()) {
-            Field field = queue.poll();
-            List<Integer> list = field.getPosibilities();
-            for (int i = 0; i < list.size(); i++) {
-                int tmp = list.get(i);
-                field.setValue(tmp);
-                updatePosibilities(field, tmp);
-                //print();
-                recursion();
-                updatePosibilities(field, tmp);
-            }
-            
-        }
-    }
-
-    private void setPosibilities() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (!grid[i][j].isUsed()) {
-                    grid[i][j].setPosibilities();
-                    queue.add(grid[i][j]);
-                }
-            }
-        }
-    }
-
-    private void setFields() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                grid[i][j] = new Field(i, j, this);
-            }
-        }
-    }
-
     public void print() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 System.out.print(grid[i][j]);
             }
-            System.out.println(" ");
+            System.out.println("");
         }
-        System.out.println(" ");
+        System.out.println("");
     }
-    
-    private void updatePosibilities(Field field, int value){
-       UpdatePosibilitiesInLine(field.getXcoordinate(), value);
-       UpdatePosibilitiesInColumn(field.getYcoordinate(), value);
-       UpdatePosibilitiesInSquare(field.getXSquareCoordinate(), field.getYSquareCoordinate(), value);
-    }
-    
-    private void UpdatePosibilitiesInLine(int line, int number) {
-        for (int i = 0; i < SIZE; i++) {
-            grid[line][i].setPosibilities();
-        }
-    }
-    
-     private void UpdatePosibilitiesInColumn(int column, int number) {
-        for (int i = 0; i < SIZE; i++) {
-            grid[i][column].setPosibilities();
-        }
-    }
-    
-    private void UpdatePosibilitiesInSquare(int x, int y, int number){
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                grid[x+i][y+j].setPosibilities();
-            }
-        }
-    }
-
-    
 
 }

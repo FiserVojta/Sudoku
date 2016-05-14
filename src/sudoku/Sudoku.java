@@ -5,6 +5,9 @@
  */
 package sudoku;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Vojtech
@@ -15,16 +18,23 @@ public class Sudoku {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Grid grid = new Grid(9);
-       grid.getFieldAt(0, 0).setValue(2);
-       grid.getFieldAt(0, 6).setValue(6);
-       grid.getFieldAt(5, 1).setValue(7);
-       grid.getFieldAt(8, 1).setValue(8);
-       grid.getFieldAt(4, 4).setValue(1);       
-       //grid.getFieldAt(5, 5).setPosibilities();
-       //grid.getFieldAt(5, 5).print();
-       grid.compute();
-       grid.print();
+        Grid grid = new Grid();
+
+        grid.getFieldAt(0, 1).setValue(1);
+        grid.getFieldAt(0, 2).setValue(2);
+
+        grid.getFieldAt(0, 3).setValue(3);
+        grid.getFieldAt(0, 4).setValue(4);
+        grid.getFieldAt(0, 6).setValue(5);
+        grid.getFieldAt(0, 5).setValue(6);
+        grid.getFieldAt(2, 2).setValue(7);
+        grid.getFieldAt(8, 3).setValue(8);
+      
+
+        grid.compute();
+        //grid.getFieldAt(8, 8).print();
+        grid.print();
+
     }
-    
+
 }

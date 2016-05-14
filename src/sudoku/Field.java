@@ -46,41 +46,43 @@ public class Field implements Comparable<Field> {
     }
 
     public void setPosibilities() {
-       
-            for (int i = 0; i < 9; i++) {
-                posibilities.add(i + 1);
-            }
-            removePosibilitiesFromLine();
-            removePosibilitiesFromColumn();
-            removePosibilitiesFromSquare();
-        
+        posibilities = new ArrayList();
+        for (int i = 1; i < 10; i++) {
+            posibilities.add(i);
+        }
+        removePosibilitiesFromLine();
+        removePosibilitiesFromColumn();
+        removePosibilitiesFromSquare();
+
     }
 
     private void removePosibilitiesFromSquare() {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                this.removeNumberFromPosibilities(grid.getFieldAt(XSquareCoordinate + i, YSquareCoordinate + j).getValue());
+            for (int j = 0; j < 3; j++) {                
+                    this.removeNumberFromPosibilities(grid.getFieldAt(XSquareCoordinate + i, YSquareCoordinate + j).getValue());               
             }
         }
     }
 
     private void removePosibilitiesFromLine() {
-        for (int i = 0; i < 9; i++) {
-            this.removeNumberFromPosibilities(grid.getFieldAt(Xcoordinate, i).getValue());
+        for (int i = 0; i < 9; i++) {            
+                this.removeNumberFromPosibilities(grid.getFieldAt(Xcoordinate, i).getValue());           
         }
     }
 
     private void removePosibilitiesFromColumn() {
-        for (int i = 0; i < 9; i++) {
-            this.removeNumberFromPosibilities(grid.getFieldAt(i, Ycoordinate).getValue());
+        for (int i = 0; i < 9; i++) {           
+                this.removeNumberFromPosibilities(grid.getFieldAt(i, Ycoordinate).getValue());            
         }
     }
 
     public void removeNumberFromPosibilities(int number) {
         for (int i = 0; i < posibilities.size(); i++) {
             if (posibilities.get(i) == number) {
+
                 posibilities.remove(i);
                 return;
+
             }
         }
     }
