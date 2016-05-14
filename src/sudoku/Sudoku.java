@@ -20,8 +20,8 @@ public class Sudoku {
     public static void main(String[] args) {
         Grid grid = new Grid();
 
-        grid.getFieldAt(0, 1).setValue(1);
-        grid.getFieldAt(0, 2).setValue(2);
+      grid.getFieldAt(0, 1).setValue(1);
+         grid.getFieldAt(0, 2).setValue(2);
 
         grid.getFieldAt(0, 3).setValue(3);
         grid.getFieldAt(0, 4).setValue(4);

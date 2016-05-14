@@ -27,7 +27,7 @@ public class Grid {
 
     public void compute() {
         computeAllPosibilities();
-        System.out.println("  as" + queue.size() + " aa ");
+      
         rekurze();
     }
 
@@ -44,7 +44,7 @@ public class Grid {
                 int value = list.get(i);
                 field.setValue(value);
                 computeAllPosibilities();
-                print();
+                //print();
                 rekurze();
             }
         }
@@ -87,5 +87,13 @@ public class Grid {
         }
         System.out.println("");
     }
+    
+    public void removeFromQueue(Field field){
+        queue.remove(field);
+    }
 
+    public void addToQueue(Field field){
+        queue.add(field);
+    }
+    
 }

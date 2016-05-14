@@ -53,6 +53,7 @@ public class Field implements Comparable<Field> {
         removePosibilitiesFromLine();
         removePosibilitiesFromColumn();
         removePosibilitiesFromSquare();
+       
 
     }
 

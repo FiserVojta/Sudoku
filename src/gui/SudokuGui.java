@@ -28,22 +28,15 @@ public class SudokuGui extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel thePanel = new JPanel(new GridLayout(9, 9));
-
-        
-
+        JTextField[][] array = new JTextField[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                JTextField label = new JTextField( i + "baf" + j);
-                thePanel.add(label);
+                array[i][j] = new JTextField(1);
+                thePanel.add(array[i][j]);
             }
         }
-        JPanel thePanel2 = new JPanel();
-        JButton button = new JButton();
-            
-        
         
         this.add(thePanel);
-      
         this.setVisible(true);
     }
 
