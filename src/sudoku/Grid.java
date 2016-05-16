@@ -27,7 +27,7 @@ public class Grid {
 
     public void compute() {
         computeAllPosibilities();
-      
+
         rekurze();
     }
 
@@ -60,7 +60,7 @@ public class Grid {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 grid[i][j] = new Field(i, j, this);
-                queue.add(grid[i][j]);
+                //queue.add(grid[i][j]);
             }
         }
     }
@@ -68,8 +68,11 @@ public class Grid {
     public void computeAllPosibilities() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                grid[i][j].setPosibilities();
-                //queue.add(grid[i][j]);
+                if (!grid[i][j].isUsed()) {
+                    queue.remove(grid[i][j]);
+                    grid[i][j].setPosibilities();
+                    queue.add(grid[i][j]);
+                }
             }
         }
     }
@@ -87,13 +90,22 @@ public class Grid {
         }
         System.out.println("");
     }
-    
-    public void removeFromQueue(Field field){
+
+    public void removeFromQueue(Field field) {
         queue.remove(field);
     }
 
-    public void addToQueue(Field field){
+    public void addToQueue(Field field) {
         queue.add(field);
     }
-    
+
+    public void setValueToField(int x, int y, int value) {
+        grid[x][y].setValue(value);
+    }
+
+    public int getValueAt(int x, int y) {
+        return grid[x][y].getValue();
+
+    }
+
 }
