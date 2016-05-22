@@ -21,56 +21,59 @@ import javax.swing.JTextField;
  */
 public class SudokuGui extends JFrame {
 
+    Dimension dmn = new Dimension(350, 350);
     Grid grid;
     JPanel mainPanel;
-    JPanel meunPanel;
+    JPanel menuPanel;
     JPanel sudokuPanel;
     JTextField[][] array;
 
     public static void main(String[] args) {
-        new SudokuGui();
+        SudokuGui sudokuGui = new SudokuGui();
     }
 
     public SudokuGui() {
         grid = new Grid();
-        
-        this.setSize(500, 400);
+
+        this.setSize(550, 400);
         this.setResizable(false);
         this.setTitle("Sudoku Solver");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        mainPanel = new JPanel(new GridLayout(1, 2));
-        meunPanel = new JPanel();
+        mainPanel = new JPanel(new FlowLayout());
+        mainPanel.setSize(new Dimension(550, 400));
+
+        menuPanel = new JPanel();
+        JButton tlacitko = new JButton("Vypocitej");
+        menuPanel.add(tlacitko);
+
         sudokuPanel = new JPanel(new GridLayout(9, 9));
 
-        mainPanel.setSize(400, 500);
-
-        sudokuPanel.setSize(400, 400);
-        mainPanel.setSize(100, 400);
+        sudokuPanel.setPreferredSize(dmn);
+        sudokuPanel.setMaximumSize(dmn);
+        sudokuPanel.setMinimumSize(dmn);
 
         array = new JTextField[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 array[i][j] = new JTextField(1);
-                array[i][j].setSize(40, 40);
                 sudokuPanel.add(array[i][j]);
             }
         }
-        JButton tlacitko = new JButton("zmackni me");
-        meunPanel.add(tlacitko);
+
         mainPanel.add(sudokuPanel);
-        mainPanel.add(meunPanel);
+        mainPanel.add(menuPanel);
+
         this.add(mainPanel);
         this.setVisible(true);
+
         tlacitko.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-               readInput();
-               grid.compute();
-               writeInput();
-                
-                
-                
+                readInput();
+                grid.compute();
+                writeInput();
+
             }
         });
     }
@@ -81,6 +84,9 @@ public class SudokuGui extends JFrame {
                 try {
                     String str = array[i][j].getText();
                     int x = Integer.parseInt(str);
+                    if (x > 0) {
+                        array[i][j].setBackground(Color.GREEN);
+                    }
                     grid.setValueToField(i, j, x);
                 } catch (Exception e) {
 
@@ -89,9 +95,8 @@ public class SudokuGui extends JFrame {
             }
         }
     }
-    
-    
-    public void writeInput(){
+
+    public void writeInput() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 String str = String.valueOf(grid.getValueAt(i, j));

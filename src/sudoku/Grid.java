@@ -44,7 +44,6 @@ public class Grid {
                 int value = list.get(i);
                 field.setValue(value);
                 computeAllPosibilities();
-                //print();
                 rekurze();
             }
         }
@@ -77,6 +76,24 @@ public class Grid {
         }
     }
 
+    public boolean valueAvaibleAt(int x, int y, int value) {
+        for (int i = 0; i < 9; i++) {
+            if (grid[x][i].getValue() == value || grid[i][y].getValue() == value) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (grid[i + grid[x][y].getXSquareCoordinate()][j + grid[x][y].getYSquareCoordinate()].getValue() == value) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public Field getFieldAt(int x, int y) {
         return grid[x][y];
     }
@@ -106,6 +123,12 @@ public class Grid {
     public int getValueAt(int x, int y) {
         return grid[x][y].getValue();
 
+    }
+
+    public boolean isPosible(int x, int y, int value) {
+        boolean ret = true;
+
+        return ret;
     }
 
 }

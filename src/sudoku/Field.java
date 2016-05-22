@@ -33,18 +33,9 @@ public class Field implements Comparable<Field> {
 
     }
 
-    public void addToPosibilities(int number) {
-        boolean check = true;
-        for (int i = 0; i < posibilities.size(); i++) {
-            if (posibilities.get(i) == number) {
-                check = false;
-            }
-        }
-        if (check && !used) {
-            posibilities.add(number);
-        }
-    }
-
+    /**
+     *Sets all valid posibilities for this field.
+     */
     public void setPosibilities() {
         posibilities = new ArrayList();
         for (int i = 1; i < 10; i++) {
@@ -77,6 +68,10 @@ public class Field implements Comparable<Field> {
         }
     }
 
+    /**
+     *  Removes given posibiliti from list
+     * @param number value of posibility to remove
+     */
     public void removeNumberFromPosibilities(int number) {
         for (int i = 0; i < posibilities.size(); i++) {
             if (posibilities.get(i) == number) {
@@ -96,14 +91,27 @@ public class Field implements Comparable<Field> {
         System.out.println(Xcoordinate + " " + Ycoordinate);
     }
 
+    /**
+     *  Return list of all posibilities
+     * @return list of posibilities
+     */
     public List<Integer> getPosibilities() {
         return posibilities;
     }
 
+    /**
+     * finds out if this field is used int sudoku
+     * 
+     * @return if is already filled
+     */
     public boolean isUsed() {
         return used;
     }
 
+    /**
+     *
+     * @param used
+     */
     public void setUsed(boolean used) {
         this.used = used;
     }
@@ -129,6 +137,11 @@ public class Field implements Comparable<Field> {
         }
     }
 
+    /**
+     *
+     * @param t
+     * @return
+     */
     @Override
     public int compareTo(Field t) {
         return posibilities.size() - t.getPosibilities().size();
