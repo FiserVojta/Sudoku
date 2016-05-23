@@ -76,24 +76,6 @@ public class Grid {
         }
     }
 
-    public boolean valueAvaibleAt(int x, int y, int value) {
-        for (int i = 0; i < 9; i++) {
-            if (grid[x][i].getValue() == value || grid[i][y].getValue() == value) {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid[i + grid[x][y].getXSquareCoordinate()][j + grid[x][y].getYSquareCoordinate()].getValue() == value) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
     public Field getFieldAt(int x, int y) {
         return grid[x][y];
     }
@@ -116,8 +98,13 @@ public class Grid {
         queue.add(field);
     }
 
-    public void setValueToField(int x, int y, int value) {
-        grid[x][y].setValue(value);
+    public boolean setValueToField(int x, int y, int value) {
+        if (isPosible(x, y, value)) {
+            grid[x][y].setValue(value);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getValueAt(int x, int y) {
@@ -126,9 +113,25 @@ public class Grid {
     }
 
     public boolean isPosible(int x, int y, int value) {
-        boolean ret = true;
+        if(value < 1 || value > 9){
+            return false;
+        }
+        
+        for (int i = 0; i < 9; i++) {
+            if (grid[x][i].getValue() == value || grid[i][y].getValue() == value) {
+                return false;
+            }
+        }
 
-        return ret;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (grid[i + grid[x][y].getXSquareCoordinate()][j + grid[x][y].getYSquareCoordinate()].getValue() == value) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }
