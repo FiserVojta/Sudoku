@@ -26,7 +26,7 @@ public class SudokuGrid extends JPanel {
     public SudokuGrid() {
         grid = new Grid();
         computable = true;
-
+        
         this.setLayout(new GridLayout(9, 9));
         this.setPreferredSize(dim);
 

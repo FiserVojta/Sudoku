@@ -27,12 +27,10 @@ public class Grid {
 
     public void compute() {
         computeAllPosibilities();
-
         rekurze();
     }
 
     private void rekurze() {
-
         if (queue.isEmpty()) {
             solved = true;
             return;
@@ -43,7 +41,7 @@ public class Grid {
             if (!solved) {
                 int value = list.get(i);
                 field.setValue(value);
-                computeAllPosibilities();
+                computePosibilitiesAroundOneField(field);
                 rekurze();
             }
         }
@@ -65,10 +63,10 @@ public class Grid {
     }
 
     public void computeAllPosibilities() {
+        queue = new PriorityQueue<>();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (!grid[i][j].isUsed()) {
-                    queue.remove(grid[i][j]);
                     grid[i][j].setPosibilities();
                     queue.add(grid[i][j]);
                 }
@@ -113,16 +111,14 @@ public class Grid {
     }
 
     public boolean isPosible(int x, int y, int value) {
-        if(value < 1 || value > 9){
+        if (value < 1 || value > 9) {
             return false;
         }
-        
         for (int i = 0; i < 9; i++) {
             if (grid[x][i].getValue() == value || grid[i][y].getValue() == value) {
                 return false;
             }
         }
-
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (grid[i + grid[x][y].getXSquareCoordinate()][j + grid[x][y].getYSquareCoordinate()].getValue() == value) {
@@ -130,8 +126,28 @@ public class Grid {
                 }
             }
         }
-
         return true;
+    }
+
+    private void computePosibilitiesAroundOneField(Field field) {
+        for (int i = 0; i < 9; i++) {
+            updateOneField(grid[i][field.getYcoordinate()]);
+            updateOneField(grid[field.getXcoordinate()][i]);
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                updateOneField(grid[field.getXSquareCoordinate() + i][field.getYSquareCoordinate() + j]);
+            }
+
+        }
+    }
+
+    private void updateOneField(Field field) {
+        if (!field.isUsed()) {
+            queue.remove(field);
+            field.setPosibilities();
+            queue.add(field);
+        }
     }
 
 }

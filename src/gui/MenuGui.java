@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import sudoku.Grid;
 
 /**
  *
@@ -21,10 +22,12 @@ public class MenuGui extends JPanel{
     SudokuGrid grid;
     JFrame rames;
     
+    
     public MenuGui(SudokuGrid grid, JFrame ramec) {
         this.setPreferredSize(dim);
         this.grid = grid;
         this.rames = ramec;
+        
         
         JButton compute = new JButton("Vypocitej");
         JButton newSudoku = new JButton("Novy pokus");
@@ -32,12 +35,11 @@ public class MenuGui extends JPanel{
         this.add(newSudoku);
         
         compute.addActionListener((ActionEvent ae) -> {
-            //System.out.println("baf");
+            
             grid.compute();
         });
 
         newSudoku.addActionListener((ActionEvent ae) -> {
-            //System.out.println("bafaf");
             rames.dispose();
             new NewGui();
         });
