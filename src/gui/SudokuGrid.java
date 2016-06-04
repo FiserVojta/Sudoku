@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import sudoku.Field;
 import sudoku.Grid;
 
 /**
@@ -18,10 +19,10 @@ import sudoku.Grid;
  */
 public class SudokuGrid extends JPanel {
 
-    boolean computable;
-    Grid grid;
-    JTextField[][] array;
-    Dimension dim = new Dimension(350, 350);
+    private boolean computable;
+    private Grid grid;
+    private JTextField[][] array;
+    private Dimension dim = new Dimension(350, 350);
 
     public SudokuGrid() {
         grid = new Grid();
@@ -34,9 +35,22 @@ public class SudokuGrid extends JPanel {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 array[i][j] = new JTextField(1);
+                array[i][j].setHorizontalAlignment((int) CENTER_ALIGNMENT);
                 this.add(array[i][j]);
+                setColor(i, j);
             }
         }
+    }
+ 
+    
+    
+    private void setColor(int x, int y){
+        Field field = grid.getFieldAt(x, y);
+        int decider = (field.getXSquareCoordinate() + field.getYSquareCoordinate());
+        if(decider%2==0){
+            array[x][y].setBackground(Color.gray);
+        }
+           
     }
 
     public void compute() {
@@ -46,7 +60,10 @@ public class SudokuGrid extends JPanel {
             writeInput();
         }
         computable = true;
+        grid = new Grid();
     }
+    
+    
 
     public void readInput() {
         for (int i = 0; i < 9; i++) {

@@ -25,6 +25,9 @@ public class Grid {
         setField();
     }
 
+    /**
+     *Completes all non used field if is posible
+     */
     public void compute() {
         computeAllPosibilities();
         rekurze();
@@ -49,7 +52,6 @@ public class Grid {
             field.setValue(0);
             field.setUsed(false);
             queue.add(field);
-
         }
     }
 
@@ -108,6 +110,10 @@ public class Grid {
     public int getValueAt(int x, int y) {
         return grid[x][y].getValue();
 
+    }
+    
+    public void setUnUsed(int x, int y){
+        grid[x][y].setUsed(false);
     }
 
     public boolean isPosible(int x, int y, int value) {
