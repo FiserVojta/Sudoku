@@ -18,7 +18,7 @@ public class Sudoku {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grid grid = new Grid();
+        Grid grid = new Grid(9);
 
       grid.getFieldAt(0, 1).setValue(1);
          grid.getFieldAt(0, 2).setValue(2);

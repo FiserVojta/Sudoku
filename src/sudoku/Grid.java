@@ -17,11 +17,15 @@ public class Grid {
     private boolean solved;
     private PriorityQueue<Field> queue;
     private final Field[][] grid;
-
-    public Grid() {
+    private final int SIZE;
+    private final int SQRSIZE;
+    
+    public Grid(int size) {
+        this.SIZE = size;
+        this.SQRSIZE = (int) Math.sqrt(size);
         solved = false;
         queue = new PriorityQueue<>();
-        this.grid = new Field[9][9];
+        this.grid = new Field[SIZE][SIZE];
         setField();
     }
 
@@ -56,8 +60,8 @@ public class Grid {
     }
 
     private void setField() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 grid[i][j] = new Field(i, j, this);
                 //queue.add(grid[i][j]);
             }
@@ -66,8 +70,8 @@ public class Grid {
 
     public void computeAllPosibilities() {
         queue = new PriorityQueue<>();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if (!grid[i][j].isUsed()) {
                     grid[i][j].setPosibilities();
                     queue.add(grid[i][j]);
@@ -81,8 +85,8 @@ public class Grid {
     }
 
     public void print() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 System.out.print(grid[i][j]);
             }
             System.out.println("");
@@ -117,16 +121,16 @@ public class Grid {
     }
 
     public boolean isPosible(int x, int y, int value) {
-        if (value < 1 || value > 9) {
+        if (value < 1 || value > SIZE) {
             return false;
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < SIZE; i++) {
             if (grid[x][i].getValue() == value || grid[i][y].getValue() == value) {
                 return false;
             }
         }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < SQRSIZE; i++) {
+            for (int j = 0; j < SQRSIZE; j++) {
                 if (grid[i + grid[x][y].getXSquareCoordinate()][j + grid[x][y].getYSquareCoordinate()].getValue() == value) {
                     return false;
                 }
@@ -136,12 +140,12 @@ public class Grid {
     }
 
     private void computePosibilitiesAroundOneField(Field field) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < SIZE; i++) {
             updateOneField(grid[i][field.getYcoordinate()]);
             updateOneField(grid[field.getXcoordinate()][i]);
         }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < SQRSIZE; i++) {
+            for (int j = 0; j < SQRSIZE; j++) {
                 updateOneField(grid[field.getXSquareCoordinate() + i][field.getYSquareCoordinate() + j]);
             }
 
@@ -155,5 +159,14 @@ public class Grid {
             queue.add(field);
         }
     }
+
+    public int getSIZE() {
+        return SIZE;
+    } 
+
+    public int getSQRSIZE() {
+        return SQRSIZE;
+    }
+    
 
 }

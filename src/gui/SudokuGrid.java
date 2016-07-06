@@ -25,7 +25,7 @@ public class SudokuGrid extends JPanel {
     private Dimension dim = new Dimension(350, 350);
 
     public SudokuGrid() {
-        grid = new Grid();
+        grid = new Grid(9);
         computable = true;
         
         this.setLayout(new GridLayout(9, 9));
@@ -60,7 +60,7 @@ public class SudokuGrid extends JPanel {
             writeInput();
         }
         computable = true;
-        grid = new Grid();
+        grid = new Grid(9);
     }
     
     

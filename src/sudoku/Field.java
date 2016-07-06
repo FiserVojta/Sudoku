@@ -22,7 +22,8 @@ public class Field implements Comparable<Field> {
     private int YSquareCoordinate;
     private final Grid grid;
     private boolean used;
-
+    //private final int SIZE;
+    
     public Field(int Xcoordinate, int Ycoordinate, Grid grid) {
         this.Xcoordinate = Xcoordinate;
         this.Ycoordinate = Ycoordinate;
@@ -38,7 +39,7 @@ public class Field implements Comparable<Field> {
      */
     public void setPosibilities() {
         posibilities = new ArrayList();
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < grid.getSIZE()+1 ; i++) {
             posibilities.add(i);
         }
         removePosibilitiesFromLine();
@@ -49,21 +50,21 @@ public class Field implements Comparable<Field> {
     }
 
     private void removePosibilitiesFromSquare() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {                
+        for (int i = 0; i < grid.getSQRSIZE(); i++) {
+            for (int j = 0; j < grid.getSQRSIZE(); j++) {                
                     this.removeNumberFromPosibilities(grid.getFieldAt(XSquareCoordinate + i, YSquareCoordinate + j).getValue());               
             }
         }
     }
 
     private void removePosibilitiesFromLine() {
-        for (int i = 0; i < 9; i++) {            
+        for (int i = 0; i < grid.getSIZE(); i++) {            
                 this.removeNumberFromPosibilities(grid.getFieldAt(Xcoordinate, i).getValue());           
         }
     }
 
     private void removePosibilitiesFromColumn() {
-        for (int i = 0; i < 9; i++) {           
+        for (int i = 0; i < grid.getSIZE(); i++) {           
                 this.removeNumberFromPosibilities(grid.getFieldAt(i, Ycoordinate).getValue());            
         }
     }
@@ -126,11 +127,11 @@ public class Field implements Comparable<Field> {
     }
 
     private void setSquare() {
-        for (int i = 0; i < 10; i = i + 3) {
-            for (int j = 0; j < 10; j = j + 3) {
+        for (int i = 0; i < grid.getSIZE() + 1; i = i + grid.getSQRSIZE()) {
+            for (int j = 0; j < grid.getSIZE() + 1; j = j + grid.getSQRSIZE()) {
                 if (Xcoordinate < i && Ycoordinate < j) {
-                    XSquareCoordinate = i - 3;
-                    YSquareCoordinate = j - 3;
+                    XSquareCoordinate = i - grid.getSQRSIZE();
+                    YSquareCoordinate = j - grid.getSQRSIZE();
                     return;
                 }
             }
